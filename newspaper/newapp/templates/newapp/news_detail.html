@@ -1,0 +1,23 @@
+{% extends 'layout/default.html' %}
+
+{% block title %}
+Post # {{ post.id }}
+{% endblock title %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h3>
+            {{ post.title }}
+        </h3>
+   <div>
+       Author: <span class="badge bg-info">{{ post.author }}</span>
+       Type: <span class="badge bg-info">{{ post.categoryType }}</span>
+       Date: <span class="badge bg-info">{{ post.dateCreation }}</span>
+   </div>
+ </div>
+ <div class="card-body">
+     {{ post.text }}
+ </div>
+</div>
+{% endblock content %}

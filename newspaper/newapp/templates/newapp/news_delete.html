@@ -1,0 +1,28 @@
+{% extends 'layout/default.html' %}
+
+{% block title %}
+    News delete
+{% endblock title %}
+
+{% block content %}
+
+<h3>Are you sure you want to delete this news?</h3>
+<div class="card">
+ <div class="card-header">
+   <h3> {{ post.title }} </h3>
+   <div>
+       Author: <span class="badge bg-info">{{ post.author }}</span>
+       Type: <span class="badge bg-info">{{ post.categoryType }}</span>
+       Date: <span class="badge bg-info">{{ post.dateCreation }}</span>
+   </div>
+ </div>
+ <div class="card-body">
+     {{ post.text }}
+ </div>
+</div>
+<form method="POST">
+ {% csrf_token %}
+   <input class="btn btn-success" type="submit" value="Delete" />
+</form>
+
+{% endblock content %}

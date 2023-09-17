@@ -1,0 +1,69 @@
+{% extends 'layout/default.html' %}
+{% load custom_filters %}
+
+{% block title %}
+News search
+{% endblock title %}
+
+
+{% block content %}
+<h1>Все новости</h1>
+{% if news %}
+
+<form method="GET">
+    <p>Дата в формате YYYY-MM-DD</p>
+   {{ filter.form }}
+   <input class="btn btn-primary" type="submit" value="Найти">
+</form>
+
+    <table class="table">
+        <tr>
+            <th scope="col">
+                Заголовок
+            </th>
+            <th scope="col">
+                Дата
+            </th>
+            <th scope="col">
+                Превью статьи
+            </th>
+            <th scope="col">
+                Автор
+            </th>
+            <th scope="col">
+                Действия
+            </th>
+        </tr>
+        {% for post in filter.qs %}
+            <tr>
+                <td>
+                    <a href="{% url 'newapp:news_detail' post.id %}">
+                    {{ post.title|censor:'Python' }}
+                    </a>
+                </td>
+                <td>
+                    {{ post.dateCreation|date:'d M Y h:m:s' }}
+                </td>
+                <td>
+                    {{ post.preview|truncatechars:50|censor:'Python' }}
+                </td>
+                <td>
+                    {{ post.author }}
+                </td>
+                <td>
+                    <a href="{% url 'newapp:news_update' post.id %}">Update</a><br>
+                    <a href="{% url 'newapp:news_delete' post.id %}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+<!-- пагинатор -->
+{% include 'newapp/parts/paginator.html' %}
+
+{% else %}
+    <!-- Если новостей нет, то сообщаем об этом пользователю  -->
+    <h2>новостей нет!</h2>
+{% endif %}
+
+{% endblock content %}
